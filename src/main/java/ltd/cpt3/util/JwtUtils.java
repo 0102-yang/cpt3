@@ -1,13 +1,13 @@
 package ltd.cpt3.util;
 
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author yang
@@ -28,6 +28,35 @@ public class JwtUtils {
 
         JwtBuilder builder = Jwts.builder().setClaims(claims).setId(jti).setIssuer(JwtUtils.ISS).setIssuedAt(iat).setNotBefore(iat).setExpiration(exp).setSubject(subject).signWith(SignatureAlgorithm.HS256, JwtUtils.SECRET);
         return builder.compact();
+    }
+
+    public static Optional<Claims> getClaims(String token) {
+        if (!StringUtils.hasText(token)) {
+            return Optional.empty();
+        }
+
+        // 获取payload
+        JwtParser parser = Jwts.parser().requireIssuer(JwtUtils.ISS).setSigningKey(JwtUtils.SECRET);
+        Optional<Claims> claims;
+        try {
+            Jws<Claims> c = parser.parseClaimsJws(token);
+            claims = Optional.of(c.getBody());
+        } catch (JwtException e) {
+            claims = Optional.empty();
+        }
+
+        // 验证是否过期
+        if (claims.isPresent()) {
+            Date now = new Date();
+            Claims test = claims.get();
+            Date exp = test.getExpiration();
+            if (exp.before(now)) {
+                // 已经过期
+                claims = Optional.empty();
+            }
+        }
+
+        return claims;
     }
 
 }

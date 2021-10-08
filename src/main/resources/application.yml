@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: cpt3
+  datasource:
+    url: jdbc:mysql://116.62.161.196:44306/yangliuqing
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8080

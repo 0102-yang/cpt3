@@ -1,5 +1,7 @@
 package ltd.cpt3.entity.dto;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,11 +12,17 @@ import java.util.Collection;
 /**
  * @author yang
  */
-public class UserDetailsImplDto implements UserDetails {
+@Data
+@Accessors(chain = true)
+public class UserDto implements UserDetails {
 
     private String username;
 
     private String password;
+
+    private Integer age;
+
+    private Boolean gender;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

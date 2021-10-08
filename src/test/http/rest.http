@@ -1,0 +1,17 @@
+POST http://116.62.161.196/login
+Content-Type: application/x-www-form-urlencoded
+
+username=yang&password=123456
+
+###
+POST http://localhost:8080/register
+Content-Type: application/x-www-form-urlencoded
+
+username=yang&password=123456&age=12&gender=1
+
+###
+GET http://116.62.161.196/doctors
+Accept: application/json
+token: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MzQyMDk0MjYsImlhdCI6MTYzMzYwNDYyNiwiaXNzIjoieWFuZy0wRkJDIiwianRpIjoiOWNlZDY4MGMtYmYyMS00NjAzLWFiNmEtMGMwOTJjOGY3NTU5IiwibmJmIjoxNjMzNjA0NjI2LCJzdWIiOiJ5YW5nIn0.zSxuRZ5OZORLiaXbKE45UnqGyyv9S4G8xQWCE4ur0O8
+
+###

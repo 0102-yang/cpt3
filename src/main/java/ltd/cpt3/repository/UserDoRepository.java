@@ -4,12 +4,14 @@ import ltd.cpt3.entity.data.UserDo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Table;
 import java.util.Optional;
 
 /**
  * @author yang
  */
 @Repository
+@Table(name = "user")
 public interface UserDoRepository extends JpaRepository<UserDo, Integer> {
 
     /**
@@ -26,6 +28,7 @@ public interface UserDoRepository extends JpaRepository<UserDo, Integer> {
      * @param username The username.
      * @return True for exists.
      */
+    @Deprecated
     Boolean existsByUsername(String username);
 
 }
